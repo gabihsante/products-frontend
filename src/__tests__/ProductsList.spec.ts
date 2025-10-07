@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/vue'
 import ProductsList from '@pages/ProductsList.vue'
 
-describe('products store', () => {
+describe('products list', () => {
   it('exibe os produtos na tela', async () => {
     render(ProductsList)
 
