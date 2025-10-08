@@ -1,0 +1,13 @@
+@use '@fontsource/source-sans-pro';
+
+body {
+  margin: 0;
+  font-family: $font-primary;
+  background-color: $background-color;
+}
+
+button {
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}

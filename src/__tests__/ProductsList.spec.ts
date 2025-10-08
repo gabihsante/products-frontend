@@ -1,13 +1,11 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/vue'
 import ProductsList from '@pages/ProductsList.vue'
+import { mount } from '@vue/test-utils'
 
 describe('products list', () => {
   it('exibe os produtos na tela', async () => {
-    render(ProductsList)
+    const wrapper = mount(ProductsList)
 
-    expect(
-      await screen.findByText('Tênis Nike Revolution 7 Feminino - Preto+Branco'),
-    ).toBeInTheDocument()
+    expect(wrapper.text()).toBe('Tênis Nike Revolution 7 Feminino - Preto+Branco')
   })
 })
