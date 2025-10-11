@@ -2,7 +2,7 @@
   <header>
     <nav class="header__navbar">
       <div class="header__content">
-        <div class="header__logo-wrapper">
+        <div class="flex-auto">
           <img src="@assets/logo.svg" alt="Logo Netshoes" class="header__logo-img" />
         </div>
         <div class="header__wishlist">
@@ -19,7 +19,9 @@
       </div>
     </nav>
   </header>
-  <router-view />
+  <main id="main-content">
+    <router-view />
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -49,10 +51,6 @@ const isMobile = computed(() => window.innerWidth < 475)
   }
 
   &__logo {
-    &-wrapper {
-      flex: 1 1 0;
-    }
-
     &-img {
       width: 8em;
     }
@@ -71,9 +69,15 @@ const isMobile = computed(() => window.innerWidth < 475)
 }
 
 [class*='btn'] {
-  background-color: transparent;
-  border: none;
   display: flex;
   align-items: center;
+}
+
+#main-content {
+  height: 100%;
+  width: 100%;
+  max-width: 1306px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 </style>

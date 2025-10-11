@@ -1,8 +1,11 @@
 @use '@fontsource/source-sans-pro';
+@import '@fontsource/source-sans-pro/300.css';
+@import '@fontsource/source-sans-pro/600.css';
+@import '@fontsource/source-sans-pro/900.css';
 
 body {
   margin: 0;
-  font-family: $font-primary;
+  font-family: $font-family;
   background-color: $background-color;
 }
 
@@ -10,4 +13,14 @@ button {
   color: inherit;
   font-family: inherit;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-auto {
+  flex: 1 1 0;
 }
