@@ -95,5 +95,9 @@ const isMobile = computed(() => window.innerWidth < 475)
   max-width: 1306px;
   margin: 0 auto;
   padding: 0.3rem 2rem;
+  @media screen and (max-width: 576px) {
+    width: calc(100% - 12px);
+    padding: 6px;
+  }
 }
 </style>

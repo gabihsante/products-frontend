@@ -49,11 +49,18 @@ function getStarType(index: number): string {
   &__card {
     width: 100%;
     max-width: 200px;
-    display: grid;
+    position: relative;
+    display: flex;
+    flex-direction: column;
     padding: 2px 2px 12px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
+
+    @media screen and (max-width: 576px) {
+      width: 48%;
+      min-width: 150px;
+    }
 
     &:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -62,23 +69,30 @@ function getStarType(index: number): string {
   }
 
   &__action-wrapper {
-    margin-left: auto;
+    position: absolute;
+    right: 6px;
+    top: 6px;
   }
 
   &__img {
-    height: 9em;
+    width: 100%;
     justify-self: center;
-    margin-block: 6px;
+    margin-bottom: 6px;
   }
 
   &__content {
     padding-left: 12px;
     color: $text-color;
+
+    @media screen and (max-width: 576px) {
+      font-size: 14px;
+    }
   }
 
   &__title {
     margin-block: 4px;
     font-weight: 600;
+    font-size: inherit;
   }
 
   &__rating {
