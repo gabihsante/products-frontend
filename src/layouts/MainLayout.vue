@@ -20,12 +20,15 @@
     </nav>
   </header>
   <main id="main-content">
+    <breadcrumb-page />
+    <hr class="content__separator" />
     <router-view />
   </main>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import BreadcrumbPage from '@components/BreadcrumbPage.vue'
 
 const isMobile = computed(() => window.innerWidth < 475)
 </script>
@@ -59,11 +62,18 @@ const isMobile = computed(() => window.innerWidth < 475)
   &__wishlist {
     &-btn {
       gap: 0.33rem;
-      font-size: 1.15rem;
+      font-size: 15px;
+      letter-spacing: 0.028rem;
     }
 
     &-icon {
-      font-size: 1.28rem;
+      font-size: 20px;
+    }
+  }
+
+  &__account {
+    &-btn {
+      padding-inline: 6px 0;
     }
   }
 }
@@ -73,11 +83,17 @@ const isMobile = computed(() => window.innerWidth < 475)
   align-items: center;
 }
 
+.content__separator {
+  width: 100%;
+  margin-block: 24px;
+  margin-inline: 0;
+}
+
 #main-content {
   height: 100%;
-  width: 100%;
+  width: calc(100% - 64px);
   max-width: 1306px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0.3rem 2rem;
 }
 </style>
