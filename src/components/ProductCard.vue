@@ -52,8 +52,14 @@ function getStarType(index: number): string {
     display: grid;
     padding: 2px 2px 12px;
     background-color: #fff;
-    box-shadow: 3px 2px 4px 3px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+    }
   }
 
   &__action-wrapper {
@@ -63,15 +69,16 @@ function getStarType(index: number): string {
   &__img {
     height: 9em;
     justify-self: center;
+    margin-block: 6px;
   }
 
   &__content {
     padding-left: 12px;
+    color: $text-color;
   }
 
   &__title {
     margin-block: 4px;
-    color: $text-color;
     font-weight: 600;
   }
 
@@ -80,16 +87,12 @@ function getStarType(index: number): string {
       display: flex;
       align-items: center;
       gap: 6px;
+      font-size: 14px;
     }
 
     &-icon {
-      font-size: 14px;
+      font-size: inherit;
       color: #e5a102;
-    }
-
-    &-value {
-      font-size: 14px;
-      color: $text-color;
     }
   }
 
@@ -104,7 +107,7 @@ function getStarType(index: number): string {
   &__sale-price {
     color: $secondary-color;
     font-size: 18px;
-    font-weight: bolder;
+    font-weight: 900;
   }
 }
 </style>
