@@ -6,7 +6,7 @@
           <button
             class="products-list__favorite-btn"
             aria-label="Favoritar produto"
-            @click="addToWishlist(product.code)"
+            @click="addToWishlist(product)"
             :style="product.isFavorite && 'background-color: red'"
           >
             <span class="material-symbols-outlined products-list__favorite-icon"> favorite </span>
@@ -36,13 +36,15 @@ const wishListStore = useWishlistListStore()
 const { getWishlistProducts: wishlist } = storeToRefs(wishListStore)
 const products = ref<ViewProduct[]>([])
 
-onMounted(fetchProducts)
+onMounted(async () => {
+  await wishListStore.fetchWishlistProducts()
+  fetchProducts()
+})
 
 function fetchProducts(): void {
   getProducts().then(async (response) => {
-    await wishListStore.fetchWishlistProducts()
     products.value = response.map((product) => {
-      const isFavorite = !!wishlist.value.find((p) => product.code === p.code)
+      const isFavorite = wishlist.value.some((p) => product.code === p.code)
       return {
         ...product,
         isFavorite,
@@ -51,8 +53,8 @@ function fetchProducts(): void {
   })
 }
 
-async function addToWishlist(code: string) {
-  await setWishlist(code)
+async function addToWishlist(product: Product) {
+  await setWishlist(product.code)
     .then(() => {
       Swal.fire({
         title: 'Successo!',
@@ -60,7 +62,14 @@ async function addToWishlist(code: string) {
         icon: 'success',
         timer: 1000,
       }).then(() => {
-        fetchProducts()
+        wishListStore.setProduct(product)
+        products.value = products.value.map((product) => {
+          const isFavorite = wishlist.value.some((p) => product.code === p.code)
+          return {
+            ...product,
+            isFavorite,
+          }
+        })
       })
     })
     .catch((err) => {

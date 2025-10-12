@@ -17,7 +17,19 @@ export const useWishlistListStore = defineStore('wishlistListStore', {
   },
   actions: {
     async fetchWishlistProducts() {
-      await getWishlist().then((response) => (this.products = response))
+      await getWishlist().then((response) => {
+        if (!response.length) return
+        this.products = response
+      })
+    },
+    setProduct(product: Product) {
+      const hasProductInList = this.products.some((p) => p.code === product.code)
+
+      if (hasProductInList) {
+        return (this.products = this.products.filter((p) => p.code !== product.code))
+      }
+
+      this.products = [...this.products, product]
     },
   },
 })
