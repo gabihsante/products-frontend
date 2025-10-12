@@ -2,8 +2,6 @@ import { describe, it, expect, vi } from 'vitest'
 import ProductsList from '@pages/ProductsList.vue'
 import { flushPromises, mount } from '@vue/test-utils'
 
-const mockAddToWishlist = vi.fn()
-
 vi.mock('@services/getProducts.ts', () => ({
   getProducts: vi.fn().mockResolvedValue([
     {
@@ -24,8 +22,14 @@ vi.mock('@services/getProducts.ts', () => ({
   ]),
 }))
 
-vi.mock('@services/wishlist.ts', () => ({
-  addToWishlist: mockAddToWishlist
+vi.mock('@services/setWishlist.ts', () => ({
+  setWishlist: vi.fn().mockResolvedValue('sucesso'),
+}))
+
+vi.mock('sweetalert2', () => ({
+  default: {
+    fire: vi.fn().mockResolvedValue(true),
+  },
 }))
 
 describe('products list', () => {
@@ -38,17 +42,18 @@ describe('products list', () => {
   })
 })
 
-describe('ProductsList', () => {
+describe('favorite products', () => {
   it('salva o produto na wishlist ao clicar no botão de favorito', async () => {
     const wrapper = mount(ProductsList)
 
     await flushPromises()
 
-    const favoriteButton = wrapper.find('products-list__favorite-btn')
+    const favoriteButton = wrapper.find('.products-list__favorite-btn')
     expect(favoriteButton.exists()).toBe(true)
 
     await favoriteButton.trigger('click')
 
-    expect(mockAddToWishlist).toHaveBeenCalledExactlyOnceWith('123')
+    const { setWishlist } = await import('@services/setWishlist.ts')
+    expect(setWishlist).toHaveBeenCalledExactlyOnceWith('123')
   })
 })
