@@ -1,5 +1,5 @@
 <template>
-  <products-container>
+  <products-container v-if="wishlistProducts.length">
     <template #product>
       <product-card v-for="product in wishlistProducts" :product="product" :key="product.code">
         <template #action>
@@ -14,6 +14,17 @@
       </product-card>
     </template>
   </products-container>
+  <div v-else class="empty-list">
+    <span class="empty-list__text"
+      >Sua lista ainda está vazia, mas você pode escolher seus produtos favoritos para salvar na sua
+      lista.
+    </span>
+    <img src="@assets/no-data.svg" alt="Imagem lista vazia" class="empty-list__img" />
+    <router-link to="/" class="empty-list__go-home-btn">
+      <span class="material-symbols-outlined empty-list__close-icon"> shopping_bag </span>
+      <span>Ver produtos</span>
+    </router-link>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -54,4 +65,42 @@ async function removeOfWishlist(code: string) {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.empty-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__text {
+    font-size: 17px;
+    letter-spacing: 0.03rem;
+  }
+
+  &__img {
+    width: 60%;
+    max-width: 500px;
+  }
+
+  &__go-home-btn {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 8px;
+    color: white;
+    background-color: $primary-color;
+    padding: 10px 16px;
+    border-radius: 4px;
+    box-shadow:
+      0 3px 5px -1px #0003,
+      0 5px 8px #00000024,
+      0 1px 14px #0000001f;
+
+    &:hover {
+      background-color: #8200ffad;
+      transition: all 0.2s ease;
+    }
+  }
+}
+</style>
