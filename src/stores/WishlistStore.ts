@@ -22,7 +22,7 @@ export const useWishlistListStore = defineStore('wishlistListStore', {
         this.products = response
       })
     },
-    setProduct(product: Product) {
+    updateWishlist(product: Product) {
       const hasProductInList = this.products.some((p) => p.code === product.code)
 
       if (hasProductInList) {

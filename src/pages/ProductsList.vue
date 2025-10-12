@@ -6,7 +6,7 @@
           <button
             class="products-list__favorite-btn"
             aria-label="Favoritar produto"
-            @click="addToWishlist(product)"
+            @click="updateWishlistProduct(product)"
             :style="product.isFavorite && 'background-color: red'"
           >
             <span class="material-symbols-outlined products-list__favorite-icon"> favorite </span>
@@ -27,6 +27,7 @@ import { setWishlist } from '@services/setWishlist.ts'
 import Swal from 'sweetalert2'
 import { useWishlistListStore } from '@stores/WishlistStore.ts'
 import { storeToRefs } from 'pinia'
+import { removeFromWishlist } from '@services/removeFromWishlist.ts'
 
 interface ViewProduct extends Product {
   isFavorite: boolean
@@ -53,6 +54,13 @@ function fetchProducts(): void {
   })
 }
 
+function updateWishlistProduct(product: Product) {
+  const isFavorite = wishlist.value.some((p) => product.code === p.code)
+
+  if (isFavorite) return addToWishlist(product)
+  return removeProductFromWishlist(product)
+}
+
 async function addToWishlist(product: Product) {
   await setWishlist(product.code)
     .then(() => {
@@ -62,14 +70,7 @@ async function addToWishlist(product: Product) {
         icon: 'success',
         timer: 1000,
       }).then(() => {
-        wishListStore.setProduct(product)
-        products.value = products.value.map((product) => {
-          const isFavorite = wishlist.value.some((p) => product.code === p.code)
-          return {
-            ...product,
-            isFavorite,
-          }
-        })
+        checkFavorite(product)
       })
     })
     .catch((err) => {
@@ -80,6 +81,39 @@ async function addToWishlist(product: Product) {
         timer: 1000,
       })
     })
+}
+
+async function removeProductFromWishlist(product: Product) {
+  await removeFromWishlist(product.code).then(() => {
+    Swal.fire({
+      title: 'Successo!',
+      text: 'Produto removido com sucesso',
+      icon: 'success',
+      timer: 1000,
+    })
+      .then(() => {
+        checkFavorite(product)
+      })
+      .catch((err) => {
+        return Swal.fire({
+          title: 'Erro!',
+          text: err,
+          icon: 'error',
+          timer: 1000,
+        })
+      })
+  })
+}
+
+function checkFavorite(product: Product) {
+  wishListStore.updateWishlist(product)
+  products.value = products.value.map((product) => {
+    const isFavorite = wishlist.value.some((p) => product.code === p.code)
+    return {
+      ...product,
+      isFavorite,
+    }
+  })
 }
 </script>
 
