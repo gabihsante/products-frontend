@@ -1,6 +1,6 @@
 <template>
-  <div class="products-list">
-    <div class="products-list__products-wrapper">
+  <products-container>
+    <template #product>
       <product-card v-for="product in products" :key="product.code" :product="product">
         <template #action>
           <button class="products-list__favorite-btn" aria-label="favorite">
@@ -8,11 +8,12 @@
           </button>
         </template>
       </product-card>
-    </div>
-  </div>
+    </template>
+  </products-container>
 </template>
 
 <script setup lang="ts">
+import ProductsContainer from '@components/ProductsContainer.vue'
 import ProductCard from '@components/ProductCard.vue'
 import { onMounted, ref } from 'vue'
 import type { Product } from '../types/product.ts'
@@ -27,27 +28,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .products-list {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 12px;
-
-  &__products-wrapper {
-    max-width: 87%;
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 24px;
-    column-gap: 24px;
-
-    @media screen and (max-width: 800px) {
-      row-gap: 6px;
-      column-gap: 6px;
-    }
-
-    @media screen and (max-width: 576px) {
-      max-width: 100%;
-    }
-  }
-
   &__favorite {
     &-btn {
       display: flex;
