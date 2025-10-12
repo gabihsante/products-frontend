@@ -6,10 +6,10 @@
           <img src="@assets/logo.svg" alt="Logo Netshoes" class="header__logo-img" />
         </div>
         <div class="header__wishlist">
-          <button class="header__wishlist-btn" aria-label="wishlist">
+          <router-link class="header__wishlist-btn" to="wishlist">
             <span class="material-symbols-outlined header__wishlist-icon">favorite</span>
             <span v-if="!isMobile">Wishlist</span>
-          </button>
+          </router-link>
         </div>
         <div>
           <button class="header__account-btn" aria-label="account">
@@ -61,9 +61,11 @@ const isMobile = computed(() => window.innerWidth < 475)
 
   &__wishlist {
     &-btn {
+      color: inherit;
       gap: 0.33rem;
       font-size: 15px;
       letter-spacing: 0.028rem;
+      text-decoration: none;
     }
 
     &-icon {

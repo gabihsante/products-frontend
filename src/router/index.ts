@@ -7,13 +7,21 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@layouts/MainLayout.vue'),
+      meta: {
+        breadcrumb: 'Home',
+      },
       children: [
         {
           path: '',
           name: 'products-list',
           component: () => import('@pages/ProductsList.vue'),
+        },
+        {
+          path: '/wishlist',
+          name: 'wishlist',
+          component: () => import('@pages/WishlistPage.vue'),
           meta: {
-            breadcrumb: 'Home',
+            breadcrumb: 'Wishlist',
           },
         },
       ],

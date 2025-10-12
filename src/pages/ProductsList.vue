@@ -3,7 +3,7 @@
     <template #product>
       <product-card v-for="product in products" :key="product.code" :product="product">
         <template #action>
-          <button class="products-list__favorite-btn" aria-label="favorite">
+          <button class="products-list__favorite-btn" aria-label="Favoritar produto">
             <span class="material-symbols-outlined products-list__favorite-icon"> favorite </span>
           </button>
         </template>
