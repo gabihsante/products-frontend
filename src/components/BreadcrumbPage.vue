@@ -1,16 +1,16 @@
 <template>
   <div class="breadcrumb__wrapper">
     <router-link
-      v-for="(breadcrumb) in breadcrumbs"
+      v-for="breadcrumb in breadcrumbs"
       :key="breadcrumb.name"
       :to="breadcrumb.path"
-      v-slot="{ isActive }"
+      v-slot="{ isExactActive }"
       class="breadcrumb__link"
     >
-      <span :class="isActive && 'breadcrumb__link--active'">
+      <span :class="isExactActive && 'breadcrumb__link--active'">
         {{ breadcrumb.label }}
       </span>
-      <span v-if="!isActive"> / </span>
+      <span v-if="!isExactActive"> / </span>
     </router-link>
   </div>
 </template>
@@ -21,7 +21,6 @@ import { storeToRefs } from 'pinia'
 
 const layoutStore = useLayoutStore()
 const { getBreadcrumb: breadcrumbs } = storeToRefs(layoutStore)
-
 </script>
 
 <style scoped lang="scss">
