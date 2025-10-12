@@ -48,7 +48,8 @@ function getStarType(index: number): string {
 .product {
   &__card {
     width: 100%;
-    max-width: 200px;
+    min-width: 160px;
+    max-width: 250px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -57,9 +58,14 @@ function getStarType(index: number): string {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
 
+    @media screen and (max-width: 1024px) {
+      max-width: 185px;
+    }
+
     @media screen and (max-width: 576px) {
       width: 48%;
-      min-width: 150px;
+      min-width: 130px;
+      max-width: 200px;
     }
 
     &:hover {
@@ -93,6 +99,10 @@ function getStarType(index: number): string {
     margin-block: 4px;
     font-weight: 600;
     font-size: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 
   &__rating {
