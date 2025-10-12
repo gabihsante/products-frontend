@@ -7,6 +7,7 @@
             class="products-list__favorite-btn"
             aria-label="Favoritar produto"
             @click="addToWishlist(product.code)"
+            :style="product.isFavorite && 'background-color: red'"
           >
             <span class="material-symbols-outlined products-list__favorite-icon"> favorite </span>
           </button>
@@ -24,12 +25,31 @@ import type { Product } from '../types/product.ts'
 import { getProducts } from '@services/getProducts.ts'
 import { setWishlist } from '@services/setWishlist.ts'
 import Swal from 'sweetalert2'
+import { useWishlistListStore } from '@stores/WishlistStore.ts'
+import { storeToRefs } from 'pinia'
 
-const products = ref<Product[]>([])
+interface ViewProduct extends Product {
+  isFavorite: boolean
+}
 
-onMounted(() => {
-  getProducts().then((response) => (products.value = response))
-})
+const wishListStore = useWishlistListStore()
+const { getWishlistProducts: wishlist } = storeToRefs(wishListStore)
+const products = ref<ViewProduct[]>([])
+
+onMounted(fetchProducts)
+
+function fetchProducts(): void {
+  getProducts().then(async (response) => {
+    await wishListStore.fetchWishlistProducts()
+    products.value = response.map((product) => {
+      const isFavorite = !!wishlist.value.find((p) => product.code === p.code)
+      return {
+        ...product,
+        isFavorite,
+      }
+    })
+  })
+}
 
 async function addToWishlist(code: string) {
   await setWishlist(code)
@@ -39,6 +59,8 @@ async function addToWishlist(code: string) {
         text: 'Produto adicionado aos favoritos',
         icon: 'success',
         timer: 1000,
+      }).then(() => {
+        fetchProducts()
       })
     })
     .catch((err) => {
