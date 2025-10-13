@@ -1,23 +1,6 @@
 <template>
   <header>
-    <nav class="header__navbar">
-      <div class="header__content">
-        <div class="flex-auto">
-          <img src="@assets/logo.svg" alt="Logo Netshoes" class="header__logo-img" />
-        </div>
-        <div class="header__wishlist">
-          <router-link class="header__wishlist-btn" to="wishlist">
-            <span class="material-symbols-outlined header__wishlist-icon">favorite</span>
-            <span v-if="!isMobile">Wishlist</span>
-          </router-link>
-        </div>
-        <div>
-          <button class="header__account-btn" aria-label="account">
-            <span class="material-symbols-outlined header__account-icon"> account_circle </span>
-          </button>
-        </div>
-      </div>
-    </nav>
+    <main-nav-bar />
   </header>
   <main id="main-content">
     <breadcrumb-page />
@@ -27,64 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import BreadcrumbPage from '@components/BreadcrumbPage.vue'
-
-const isMobile = computed(() => window.innerWidth < 475)
+import MainNavBar from '@components/MainNavBar.vue'
 </script>
 
 <style scoped lang="scss">
-.header {
-  &__navbar {
-    width: calc(100% - 64px);
-    height: 3.5rem;
-    display: flex;
-    justify-content: center;
-    padding: 0.5rem 2rem;
-    background-color: $primary-color;
-  }
-
-  &__content {
-    width: 100%;
-    max-width: 1306px;
-    display: flex;
-    align-items: center;
-    gap: 1.8em;
-    color: white;
-  }
-
-  &__logo {
-    &-img {
-      width: 8em;
-    }
-  }
-
-  &__wishlist {
-    &-btn {
-      color: inherit;
-      gap: 0.33rem;
-      font-size: 15px;
-      letter-spacing: 0.028rem;
-      text-decoration: none;
-    }
-
-    &-icon {
-      font-size: 20px;
-    }
-  }
-
-  &__account {
-    &-btn {
-      padding-inline: 6px 0;
-    }
-  }
-}
-
-[class*='btn'] {
-  display: flex;
-  align-items: center;
-}
-
 .content__separator {
   width: 100%;
   margin-block: 24px;
