@@ -5,7 +5,9 @@
     </div>
     <img :src="product.image" alt="Imagem do produto" loading="lazy" class="product__img" />
     <div class="product__content">
-      <p class="product__title">{{ product.name }}</p>
+      <tooltip-text :text="product.name">
+        <p class="product__title">{{ product.name }}</p>
+      </tooltip-text>
       <div class="product__rating-wrapper">
         <div class="d-flex">
           <span
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import { currencyFormat } from '@utils/currencyFormat'
 import type { Product } from '../types/product'
+import TooltipText from '@components/TooltipText.vue'
 
 type ProductCardProps = {
   product: Product
