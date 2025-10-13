@@ -57,7 +57,7 @@ function fetchProducts(): void {
 function updateWishlistProduct(product: Product) {
   const isFavorite = wishlist.value.some((p) => product.code === p.code)
 
-  if (isFavorite) return addToWishlist(product)
+  if (!isFavorite) return addToWishlist(product)
   return removeProductFromWishlist(product)
 }
 
