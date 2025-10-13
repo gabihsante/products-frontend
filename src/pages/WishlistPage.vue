@@ -51,6 +51,8 @@ async function removeOfWishlist(code: string) {
         text: 'Produto removido dos favoritos',
         icon: 'success',
         timer: 1000,
+        showConfirmButton: false,
+        width: 350,
       })
       wishlistStore.fetchWishlistProducts()
     })
@@ -60,6 +62,8 @@ async function removeOfWishlist(code: string) {
         text: err,
         icon: 'error',
         timer: 1000,
+        showConfirmButton: false,
+        width: 350,
       })
     })
 }

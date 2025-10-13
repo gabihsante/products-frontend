@@ -69,6 +69,8 @@ async function addToWishlist(product: Product) {
         text: 'Produto adicionado aos favoritos',
         icon: 'success',
         timer: 1000,
+        showConfirmButton: false,
+        width: 350,
       }).then(() => {
         checkFavorite(product)
       })
@@ -79,6 +81,8 @@ async function addToWishlist(product: Product) {
         text: err,
         icon: 'error',
         timer: 1000,
+        showConfirmButton: false,
+        width: 350,
       })
     })
 }
@@ -90,6 +94,8 @@ async function removeProductFromWishlist(product: Product) {
       text: 'Produto removido com sucesso',
       icon: 'success',
       timer: 1000,
+      showConfirmButton: false,
+      width: 350,
     })
       .then(() => {
         checkFavorite(product)
@@ -100,6 +106,8 @@ async function removeProductFromWishlist(product: Product) {
           text: err,
           icon: 'error',
           timer: 1000,
+          showConfirmButton: false,
+          width: 350,
         })
       })
   })
