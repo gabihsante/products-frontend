@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import DropdownMenu from '@pages/DropdownMenu.vue'
+import DropdownMenu from '@components/DropdownMenu.vue'
 import { computed } from 'vue'
 
 const menuItems = [
